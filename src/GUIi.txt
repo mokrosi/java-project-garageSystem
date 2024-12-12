@@ -1,0 +1,95 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class GUI extends JFrame {
+
+    private static final int WIDTH = 400;
+    private static final int HEIGHT = 400;
+
+    private JLabel length, width, result1;
+    private JTextField lengthTF, widthTF, resultTF;
+    private JButton button, button1;
+
+    public GUI() {
+        setTitle("APP");
+
+        length = new JLabel("Length");
+        width = new JLabel("width");
+        result1 = new JLabel("result");
+
+        lengthTF = new JTextField(6);
+        widthTF = new JTextField(6);
+        resultTF = new JTextField(6);
+        resultTF.setEditable(false);
+
+        button = new JButton("Calculate Area");
+        button1 = new JButton("Exit");
+
+        JPanel pane = new JPanel();
+        pane.setLayout(new GridLayout(4, 3, 10, 10));
+        pane.setBackground(new Color(60, 63, 65));
+        pane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        pane.add(length);
+        pane.add(lengthTF);
+        pane.add(width);
+        pane.add(widthTF);
+        pane.add(result1);
+        pane.add(resultTF);
+
+        JPanel buttomPane = new JPanel();
+        buttomPane.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+        buttomPane.add(button);
+        buttomPane.add(button1);
+
+        Container pane1 = getContentPane();
+        pane1.setLayout(new BorderLayout(10, 10));
+        pane1.add(pane, BorderLayout.CENTER);
+        pane1.add(buttomPane, BorderLayout.SOUTH);
+
+        button.addActionListener(new Handle());
+        button1.addActionListener(new ExitHandl());
+
+        setSize(WIDTH, HEIGHT);
+        setVisible(true);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+    }
+
+    private class Handle implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            double length, width, result;
+
+            try {
+
+                length = Double.parseDouble(lengthTF.getText());
+
+                width = Double.parseDouble(widthTF.getText());
+
+                result = length * width;
+
+                resultTF.setText("" + result);
+            } catch (NumberFormatException ex) {
+            }
+
+        }
+
+    }
+
+    private class ExitHandl implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+
+    }
+
+    public static void main(String[] args) throws Exception {
+        GUI reApp = new GUI();
+
+    }
+}
